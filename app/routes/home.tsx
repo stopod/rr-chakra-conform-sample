@@ -1,26 +1,21 @@
 import { Container, HStack, VStack } from "@chakra-ui/react";
-import { getFormProps, getSelectProps, useForm } from "@conform-to/react";
+import { getFormProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { ConfromField } from "app/components/ui/field";
 
-import { Form, redirect, type MetaFunction } from "react-router";
+import { Form, type MetaFunction } from "react-router";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import type { Route } from "../routes/+types/home";
 
 import {
-  NativeSelectField,
-  NativeSelectRoot,
-} from "app/components/ui/native-select";
+  FormFieldSelect,
+  getSelectFormProps,
+} from "~/components/form-filed-select";
 import {
   FormFieldText,
   getInputTypeDateProps,
   getInputTypeTextProps,
 } from "~/components/form-filed-text";
-import {
-  FormFieldSelect,
-  getSelectFormProps,
-} from "~/components/form-filed-select";
 
 export const meta: MetaFunction = () => {
   return [
