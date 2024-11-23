@@ -17,6 +17,10 @@ import {
   getInputTypeDateProps,
   getInputTypeTextProps,
 } from "~/components/form-filed-text";
+import {
+  FormFieldSelect,
+  getSelectFormProps,
+} from "~/components/form-filed-select";
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,12 +58,27 @@ export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const submission = parseWithZod(formData, { schema });
 
+  if (submission.status !== "success") {
+    return { lastResult: submission.reply() };
+  }
+
+  if (submission.payload.prefecture === "選んでください") {
+    return {
+      lastResult: submission.reply({
+        fieldErrors: {
+          prefecture: ["選んでください"],
+        },
+      }),
+    };
+  }
+
   console.log(submission.payload);
-  return redirect("/");
+  return { lastResult: submission.reply() };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
+export default function Home({ loaderData, actionData }: Route.ComponentProps) {
   const [form, fields] = useForm({
+    lastResult: actionData?.lastResult,
     constraint: getZodConstraint(schema),
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
@@ -103,24 +122,20 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             }}
           />
 
-          <ConfromField
+          <FormFieldSelect
             label="都道府県"
             required
-            id={fields.prefecture.id}
-            errorId={fields.prefecture.errorId}
-            errorText={fields.prefecture.errors}
-            invalid={!!fields.prefecture.errors?.length}
+            selectProps={{
+              ...getSelectFormProps(fields.prefecture),
+            }}
           >
-            <NativeSelectRoot>
-              <NativeSelectField {...getSelectProps(fields.prefecture)}>
-                {options.map((option) => (
-                  <option value={option.value} key={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </NativeSelectField>
-            </NativeSelectRoot>
-          </ConfromField>
+            <option>選んでください</option>
+            {options.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </FormFieldSelect>
 
           <Button colorPalette={"teal"} type="submit">
             登録
