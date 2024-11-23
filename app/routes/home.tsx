@@ -2,10 +2,12 @@ import {
   Container,
   HStack,
   Input,
+  InputProps,
   VStack,
   createListCollection,
 } from "@chakra-ui/react";
 import {
+  FieldMetadata,
   getFormProps,
   getInputProps,
   getSelectProps,
@@ -23,6 +25,12 @@ import {
   NativeSelectField,
   NativeSelectRoot,
 } from "app/components/ui/native-select";
+import { ReactNode } from "react";
+import {
+  FormFieldText,
+  getInputTypeDateProps,
+  getInputTypeTextProps,
+} from "~/components/form-filed-text";
 
 export const meta: MetaFunction = () => {
   return [
@@ -83,51 +91,30 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <Container>
         <VStack gap={6} mt={5}>
           <HStack w={"full"}>
-            <ConfromField
-              label="性"
+            <FormFieldText
+              label="姓"
               required
-              id={fields.lastName.id}
-              errorId={fields.lastName.errorId}
-              errorText={fields.lastName.errors}
-              invalid={!!fields.lastName.errors?.length}
-            >
-              <Input
-                placeholder="性"
-                variant="outline"
-                {...getInputProps(fields.lastName, { type: "text" })}
-              />
-            </ConfromField>
+              inputProps={{
+                ...getInputTypeTextProps(fields.lastName),
+              }}
+            />
 
-            <ConfromField
+            <FormFieldText
               label="名"
               required
-              id={fields.firstName.id}
-              errorId={fields.firstName.errorId}
-              errorText={fields.firstName.errors}
-              invalid={!!fields.firstName.errors?.length}
-            >
-              <Input
-                placeholder="名"
-                variant="outline"
-                {...getInputProps(fields.firstName, { type: "text" })}
-              />
-            </ConfromField>
+              inputProps={{
+                ...getInputTypeTextProps(fields.firstName),
+              }}
+            />
           </HStack>
 
-          <ConfromField
+          <FormFieldText
             label="生年月日"
             required
-            id={fields.birthday.id}
-            errorId={fields.birthday.errorId}
-            errorText={fields.birthday.errors}
-            invalid={!!fields.birthday.errors?.length}
-          >
-            <Input
-              placeholder="生年月日"
-              variant="outline"
-              {...getInputProps(fields.birthday, { type: "date" })}
-            />
-          </ConfromField>
+            inputProps={{
+              ...getInputTypeDateProps(fields.birthday),
+            }}
+          />
 
           <ConfromField
             label="都道府県"
