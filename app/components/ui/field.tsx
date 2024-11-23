@@ -51,14 +51,17 @@ export const ConfromField = forwardRef<HTMLDivElement, ConfromFieldProps>(
       errorId,
       errorText,
       optionalText,
+      required,
       ...rest
     } = props;
     return (
-      <ChakraField.Root ref={ref} {...rest}>
+      <ChakraField.Root ref={ref} required={required} {...rest}>
         {label && (
           <ChakraField.Label htmlFor={id}>
             {label}
-            <ChakraField.RequiredIndicator fallback={optionalText} />
+            {required && (
+              <ChakraField.RequiredIndicator fallback={optionalText} />
+            )}
           </ChakraField.Label>
         )}
         {children}

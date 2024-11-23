@@ -13,7 +13,7 @@ type FormFiledTextProps = ConfromFieldProps & {
 
 export const FormFieldText = (props: FormFiledTextProps) => {
   const { inputProps, ...rest } = props;
-  const { id, errorId, errorText, invalid, ...inputPropsRest } =
+  const { id, errorId, errorText, invalid, required, ...inputPropsRest } =
     inputProps || {};
 
   return (
@@ -22,6 +22,7 @@ export const FormFieldText = (props: FormFiledTextProps) => {
       errorId={errorId}
       errorText={errorText}
       invalid={invalid}
+      required={required}
       {...rest}
     >
       <Input id={id} {...inputPropsRest} />

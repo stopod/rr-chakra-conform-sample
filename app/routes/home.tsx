@@ -25,8 +25,8 @@ export const meta: MetaFunction = () => {
 };
 
 const schema = z.object({
-  firstName: z.string({ required_error: "名は必須です" }),
   lastName: z.string({ required_error: "性は必須です" }),
+  firstName: z.string({ required_error: "名は必須です" }),
   birthday: z.date({ required_error: "誕生日は必須です" }),
   prefecture: z.string(),
 });
@@ -94,7 +94,6 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
           <HStack w={"full"}>
             <FormFieldText
               label="姓"
-              required
               inputProps={{
                 ...getInputTypeTextProps(fields.lastName),
               }}
@@ -102,7 +101,6 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 
             <FormFieldText
               label="名"
-              required
               inputProps={{
                 ...getInputTypeTextProps(fields.firstName),
               }}
@@ -111,7 +109,6 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 
           <FormFieldText
             label="生年月日"
-            required
             inputProps={{
               ...getInputTypeDateProps(fields.birthday),
             }}
@@ -119,7 +116,6 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 
           <FormFieldSelect
             label="都道府県"
-            required
             selectProps={{
               ...getSelectFormProps(fields.prefecture),
             }}

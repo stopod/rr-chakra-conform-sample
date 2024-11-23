@@ -9,12 +9,13 @@ type FormFieldSelectProps = ConfromFieldProps & {
     errorId: string;
     errorText: ReactNode;
     invalid: boolean;
+    required: boolean | undefined;
   };
 };
 
 export const FormFieldSelect = (props: FormFieldSelectProps) => {
   const { children, selectProps, ...rest } = props;
-  const { id, errorId, errorText, invalid, ...selectPropsRest } =
+  const { id, errorId, errorText, invalid, required, ...selectPropsRest } =
     selectProps || {};
 
   return (
@@ -23,6 +24,7 @@ export const FormFieldSelect = (props: FormFieldSelectProps) => {
       errorId={errorId}
       errorText={errorText}
       invalid={invalid}
+      required={required}
       {...rest}
     >
       <NativeSelectRoot>
@@ -36,10 +38,13 @@ export const getSelectFormProps = (metadata: FieldMetadata) => {
   const errorId = metadata.errorId;
   const errorText = metadata.errors;
   const invalid = !metadata.valid;
+  const required = metadata.required;
+
   return {
     errorId,
     errorText,
     invalid,
+    required,
     ...getSelectProps(metadata),
   };
 };
