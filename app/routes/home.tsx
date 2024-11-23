@@ -26,6 +26,11 @@ import {
   NativeSelectRoot,
 } from "app/components/ui/native-select";
 import { ReactNode } from "react";
+import {
+  FormFieldText,
+  getInputTypeDateProps,
+  getInputTypeTextProps,
+} from "~/components/form-filed-text";
 
 export const meta: MetaFunction = () => {
   return [
@@ -81,80 +86,35 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     ? loaderData.map((item) => ({ value: item.id, label: item.name }))
     : undefined;
 
-  const getInpurPropsEx = (metadata: FieldMetadata) => {
-    const id = metadata.id;
-    const errorId = metadata.errorId;
-    const errorText = metadata.errors;
-    const invalid = !!metadata.errors?.length;
-
-    return {
-      errorId,
-      errorText,
-      invalid,
-      ...getInputProps(metadata, { type: "text" }),
-    };
-  };
-
-  type LastNameFormProps = InputProps & {
-    errorId: string;
-    errorText: ReactNode;
-    invalid: boolean;
-  };
-  const LastNameForm = (props: LastNameFormProps) => {
-    const { id, errorId, errorText, invalid, ...rest } = props;
-    console.log(rest.value);
-
-    return (
-      <ConfromField
-        label="姓"
-        required
-        id={id}
-        errorId={errorId}
-        errorText={errorText}
-        invalid={invalid}
-      >
-        <Input placeholder="姓" variant="outline" {...rest} />
-      </ConfromField>
-    );
-  };
-
   return (
     <Form method="post" {...getFormProps(form)}>
       <Container>
         <VStack gap={6} mt={5}>
           <HStack w={"full"}>
-            <LastNameForm {...getInpurPropsEx(fields.lastName)} />
+            <FormFieldText
+              label="姓"
+              required
+              inputProps={{
+                ...getInputTypeTextProps(fields.lastName),
+              }}
+            />
 
-            <ConfromField
+            <FormFieldText
               label="名"
               required
-              id={fields.firstName.id}
-              errorId={fields.firstName.errorId}
-              errorText={fields.firstName.errors}
-              invalid={!!fields.firstName.errors?.length}
-            >
-              <Input
-                placeholder="名"
-                variant="outline"
-                {...getInputProps(fields.firstName, { type: "text" })}
-              />
-            </ConfromField>
+              inputProps={{
+                ...getInputTypeTextProps(fields.firstName),
+              }}
+            />
           </HStack>
 
-          <ConfromField
+          <FormFieldText
             label="生年月日"
             required
-            id={fields.birthday.id}
-            errorId={fields.birthday.errorId}
-            errorText={fields.birthday.errors}
-            invalid={!!fields.birthday.errors?.length}
-          >
-            <Input
-              placeholder="生年月日"
-              variant="outline"
-              {...getInputProps(fields.birthday, { type: "date" })}
-            />
-          </ConfromField>
+            inputProps={{
+              ...getInputTypeDateProps(fields.birthday),
+            }}
+          />
 
           <ConfromField
             label="都道府県"
