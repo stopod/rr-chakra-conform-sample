@@ -1,31 +1,17 @@
-import {
-  Container,
-  HStack,
-  Input,
-  InputProps,
-  VStack,
-  createListCollection,
-} from "@chakra-ui/react";
-import {
-  FieldMetadata,
-  getFormProps,
-  getInputProps,
-  getSelectProps,
-  useForm,
-} from "@conform-to/react";
+import { Container, HStack, VStack } from "@chakra-ui/react";
+import { getFormProps, getSelectProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { ConfromField } from "app/components/ui/field";
 
 import { Form, redirect, type MetaFunction } from "react-router";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
-import { Route } from "../+types.root";
+import type { Route } from "../+types.root";
 
 import {
   NativeSelectField,
   NativeSelectRoot,
 } from "app/components/ui/native-select";
-import { ReactNode } from "react";
 import {
   FormFieldText,
   getInputTypeDateProps,
@@ -55,7 +41,7 @@ type Prefecture = {
   updated_at: string;
 };
 
-export async function loader(): Promise<Prefecture[]> {
+export async function loader() {
   const res = await fetch(
     "https://apis.apima.net/k2srm05wzm1pdl3xk0sv/v1/prefectures/"
   );
