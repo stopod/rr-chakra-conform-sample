@@ -6,7 +6,7 @@ import { ConfromField } from "app/components/ui/field";
 import { Form, redirect, type MetaFunction } from "react-router";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
-import type { Route } from "../+types.root";
+import type { Route } from "../routes/+types/home";
 
 import {
   NativeSelectField,
@@ -68,9 +68,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     },
   });
 
-  const options = loaderData
-    ? loaderData.map((item) => ({ value: item.id, label: item.name }))
-    : undefined;
+  const options = loaderData.map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
 
   return (
     <Form method="post" {...getFormProps(form)}>
