@@ -2,10 +2,12 @@ import {
   Container,
   HStack,
   Input,
+  InputProps,
   VStack,
   createListCollection,
 } from "@chakra-ui/react";
 import {
+  FieldMetadata,
   getFormProps,
   getInputProps,
   getSelectProps,
@@ -23,6 +25,7 @@ import {
   NativeSelectField,
   NativeSelectRoot,
 } from "app/components/ui/native-select";
+import { ReactNode } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -78,25 +81,49 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     ? loaderData.map((item) => ({ value: item.id, label: item.name }))
     : undefined;
 
+  const getInpurPropsEx = (metadata: FieldMetadata) => {
+    const id = metadata.id;
+    const errorId = metadata.errorId;
+    const errorText = metadata.errors;
+    const invalid = !!metadata.errors?.length;
+
+    return {
+      errorId,
+      errorText,
+      invalid,
+      ...getInputProps(metadata, { type: "text" }),
+    };
+  };
+
+  type LastNameFormProps = InputProps & {
+    errorId: string;
+    errorText: ReactNode;
+    invalid: boolean;
+  };
+  const LastNameForm = (props: LastNameFormProps) => {
+    const { id, errorId, errorText, invalid, ...rest } = props;
+    console.log(rest.value);
+
+    return (
+      <ConfromField
+        label="姓"
+        required
+        id={id}
+        errorId={errorId}
+        errorText={errorText}
+        invalid={invalid}
+      >
+        <Input placeholder="姓" variant="outline" {...rest} />
+      </ConfromField>
+    );
+  };
+
   return (
     <Form method="post" {...getFormProps(form)}>
       <Container>
         <VStack gap={6} mt={5}>
           <HStack w={"full"}>
-            <ConfromField
-              label="性"
-              required
-              id={fields.lastName.id}
-              errorId={fields.lastName.errorId}
-              errorText={fields.lastName.errors}
-              invalid={!!fields.lastName.errors?.length}
-            >
-              <Input
-                placeholder="性"
-                variant="outline"
-                {...getInputProps(fields.lastName, { type: "text" })}
-              />
-            </ConfromField>
+            <LastNameForm {...getInpurPropsEx(fields.lastName)} />
 
             <ConfromField
               label="名"
