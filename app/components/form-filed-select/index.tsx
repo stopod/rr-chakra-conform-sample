@@ -6,10 +6,10 @@ import { NativeSelectField, NativeSelectRoot } from "../ui/native-select";
 
 type FormFieldSelectProps = ConfromFieldProps & {
   selectProps?: NativeSelectFieldProps & {
-    errorId: string;
-    errorText: ReactNode;
-    invalid: boolean;
-    required: boolean | undefined;
+    errorId?: string;
+    errorText?: ReactNode;
+    invalid?: boolean;
+    required?: boolean | undefined;
   };
 };
 

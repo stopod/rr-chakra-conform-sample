@@ -5,9 +5,9 @@ import { ReactNode } from "react";
 
 type FormFiledTextProps = ConfromFieldProps & {
   inputProps?: InputProps & {
-    errorId: string;
-    errorText: ReactNode;
-    invalid: boolean;
+    errorId?: string;
+    errorText?: ReactNode;
+    invalid?: boolean;
   };
 };
 

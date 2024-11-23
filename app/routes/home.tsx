@@ -90,7 +90,7 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
   return (
     <Form method="post" {...getFormProps(form)}>
       <Container>
-        <VStack gap={6} mt={5}>
+        <VStack gap={6} pt={10}>
           <HStack w={"full"}>
             <FormFieldText
               label="姓"
