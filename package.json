@@ -17,6 +17,7 @@
     "@conform-to/react": "^1.2.2",
     "@conform-to/zod": "^1.2.2",
     "@emotion/react": "^11.13.3",
+    "@react-router/fs-routes": "^7.0.1",
     "@react-router/node": "^7.0.1",
     "@react-router/serve": "^7.0.1",
     "@storybook/addon-themes": "^8.4.2",

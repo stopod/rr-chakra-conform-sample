@@ -5,7 +5,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { Form, type MetaFunction } from "react-router";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
-import type { Route } from "../routes/+types/home";
+import type { Route } from "../routes/+types/sample-validation";
 
 import {
   FormFieldSelect,
