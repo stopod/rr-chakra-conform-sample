@@ -1,3 +1,7 @@
+# MEMO
+https://qiita.com/stopod/items/42ac91a67037e849e97f  
+上記記事のリポジトリです
+
 # Welcome to React Router!
 
 - 📖 [React Router docs](https://reactrouter.com/dev)
